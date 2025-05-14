@@ -1,0 +1,62 @@
+{
+  "W-shilpa-kutum-pegu-danichapori": {
+    "weaverId": "W-shilpa-kutum-pegu-danichapori",
+    "name": "Shilpa Kutum Pegu",
+    "village": "Danichapori",
+    "subdivision": "Khumtai",
+    "district": "Golaghat",
+    "latitude": "26.778945",
+    "longitude": "93.914533",
+    "imageUrl": "Shilpa"
+  },
+  "W-bornali-doley-pegu-danichapori": {
+    "weaverId": "W-bornali-doley-pegu-danichapori",
+    "name": "Bornali Doley Pegu",
+    "village": "Danichapori",
+    "subdivision": "Khumtai",
+    "district": "Golaghat",
+    "latitude": "26.778945",
+    "longitude": "93.914533",
+    "imageUrl": "Bornali"
+  },
+  "W-lokhimai-pegu-danichapori": {
+    "weaverId": "W-lokhimai-pegu-danichapori",
+    "name": "Lokhimai Pegu",
+    "village": "Danichapori",
+    "subdivision": "Khumtai",
+    "district": "Golaghat",
+    "latitude": "26.778945",
+    "longitude": "93.914533",
+    "imageUrl": "Lokhimi"
+  },
+  "W-monalisha-taud-danichapori": {
+    "weaverId": "W-monalisha-taud-danichapori",
+    "name": "Monalisha Taud",
+    "village": "Danichapori",
+    "subdivision": "Khumtai",
+    "district": "Golaghat",
+    "latitude": "26.778945",
+    "longitude": "93.914533",
+    "imageUrl": "Monalisha"
+  },
+  "W-rupa-charo-pegu-puronimati-bhakat-gaon": {
+    "weaverId": "W-rupa-charo-pegu-puronimati-bhakat-gaon",
+    "name": "Rupa Charo Pegu",
+    "village": "Puronimati Bhakat gaon",
+    "subdivision": "Khumtai",
+    "district": "Golaghat",
+    "latitude": "26.73855",
+    "longitude": "93.92779",
+    "imageUrl": "Rupa"
+  },
+  "W-urbashi-pegu-puronimati-bhakat-gaon": {
+    "weaverId": "W-urbashi-pegu-puronimati-bhakat-gaon",
+    "name": "Urbashi Pegu",
+    "village": "Puronimati Bhakat gaon",
+    "subdivision": "Khumtai",
+    "district": "Golaghat",
+    "latitude": "26.73855",
+    "longitude": "93.92779",
+    "imageUrl": "Urbashi"
+  }
+}
