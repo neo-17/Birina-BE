@@ -66,7 +66,7 @@ const GamosaProductSchema = new Schema<GamosaProduct>({
 // Create the model
 const GamosaProduct = mongoose.model<GamosaProduct>('GamosaProduct', GamosaProductSchema);
 
-const mongoUrl: string = 'mongodb+srv://codesshyam:YeBxawqoO0ES80co@cluster0.aulmwma.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const mongoUrl = process.env.MONGO_URI;
 
 // Generate QR code function
 function generateQRCode(): QRCode {
@@ -85,7 +85,7 @@ interface QRCodeLog {
 
 async function populateGamosaProducts(): Promise<void> {
   try {
-    await mongoose.connect(mongoUrl);
+    await mongoose.connect(mongoUrl as string);
     console.log('Connected to MongoDB');
 
     // Clear existing data if needed
