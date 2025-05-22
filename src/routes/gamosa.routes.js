@@ -20,4 +20,5 @@ router.post('/:id/generate-qr', auth_middleware_1.authenticateAdmin, gamosa_cont
 router.get('/qr-image/:code', gamosa_controller_1.getQRCodeImage);
 router.get('/qr/:code', gamosa_controller_1.getGamosaByQRCode);
 router.get('/qr/:gamosaId', gamosa_controller_1.getQRDetails);
+router.get('/zip', gamosa_controller_1.generateQRCodeZipFile);
 exports.default = router;

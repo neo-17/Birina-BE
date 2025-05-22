@@ -3,6 +3,9 @@ import Gamosa from '../models/gamosaProduct.model';
 import { v4 as uuidv4 } from 'uuid';
 import QRCode from 'qrcode'
 import { deployGamosaNFTContract } from '../services/nftDeployment.services';
+import archiver from 'archiver';
+import fs from 'fs';
+import path from 'path';
 
 // CREATE
 export const createGamosa = async (req: any, res: any) => {
@@ -290,3 +293,60 @@ export const getQRDetails = async (req: any, res: any) => {
   }
 };
 
+export const generateQRCodeZipFile = async (req: any, res: any) => {
+  try {
+    const products = await Gamosa.find();
+
+    if (!products || products.length === 0) {
+      return res.status(404).send('No Gamosas found');
+    }
+
+    console.log(products.length);
+    // Ensure output directory exists
+    const outputDir = path.join(__dirname, '../output');
+    if (!fs.existsSync(outputDir)) {
+      fs.mkdirSync(outputDir, { recursive: true });
+    }
+
+    // Create a unique ZIP file name using timestamp
+    const fileName = `qrcodes_${Date.now()}.zip`;
+    const filePath = path.join(outputDir, fileName);
+    const output = fs.createWriteStream(filePath);
+    const archive = archiver('zip', { zlib: { level: 9 } });
+
+    // Handle archive errors
+    archive.on('error', (err) => {
+      throw err;
+    });
+
+    // Pipe archive to file
+    archive.pipe(output);
+
+    // Add QR images to the ZIP
+    for (const product of products) {
+      for (const qr of product.qrCodes) {
+        const code = qr.code;
+        const url = `${process.env.FE_URL}/p/${code}`;
+        const qrDataUrl = await QRCode.toDataURL(url);
+        const imgBuffer = Buffer.from(qrDataUrl.split(',')[1], 'base64');
+        const fileEntryName = `${product._id}_${code}.png`;
+
+        archive.append(imgBuffer, { name: fileEntryName });
+      }
+    }
+
+    await archive.finalize();
+
+    // Respond when the file is written
+    output.on('close', () => {
+      res.status(200).json({
+        message: 'QR code ZIP file generated successfully',
+        filePath: filePath,
+        size: archive.pointer(), // bytes
+      });
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal server error');
+  }
+};

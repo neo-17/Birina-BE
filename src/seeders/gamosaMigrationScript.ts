@@ -66,7 +66,7 @@ const GamosaProductSchema = new Schema<GamosaProduct>({
 // Create the model
 const GamosaProduct = mongoose.model<GamosaProduct>('GamosaProduct', GamosaProductSchema);
 
-const mongoUrl: string = 'mongodb+srv://codesshyam:SweYu58XhY34HSkL@cluster0.oepulor.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const mongoUrl: string = 'mongodb+srv://codesshyam:YeBxawqoO0ES80co@cluster0.aulmwma.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
 // Generate QR code function
 function generateQRCode(): QRCode {

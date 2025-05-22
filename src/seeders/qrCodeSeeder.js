@@ -62,7 +62,7 @@ const QRCodeSchema = new mongoose_1.Schema({
 });
 // Create the model
 const QRCode = mongoose_1.default.model('QRCode', QRCodeSchema);
-const mongoUrl = 'mongodb+srv://codesshyam:SweYu58XhY34HSkL@cluster0.oepulor.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const mongoUrl = 'mongodb+srv://codesshyam:CrOBpfd63tEsv9gp@cluster0.z2npy82.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 function seedQRCodes() {
     return __awaiter(this, void 0, void 0, function* () {
         var _a;

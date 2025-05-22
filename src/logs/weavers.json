@@ -58,5 +58,45 @@
     "latitude": "26.73855",
     "longitude": "93.92779",
     "imageUrl": "Urbashi"
+  },
+  "W-priyanka-das-borgaon": {
+    "weaverId": "W-priyanka-das-borgaon",
+    "name": "Priyanka Das",
+    "village": "Borgaon",
+    "subdivision": "Khumtai",
+    "district": "Golaghat",
+    "latitude": "26.765432",
+    "longitude": "93.901234",
+    "imageUrl": "Priyanka"
+  },
+  "W-jayanti-borah-morangi-gaon": {
+    "weaverId": "W-jayanti-borah-morangi-gaon",
+    "name": "Jayanti Borah",
+    "village": "Morangi Gaon",
+    "subdivision": "Khumtai",
+    "district": "Golaghat",
+    "latitude": "26.785678",
+    "longitude": "93.923456",
+    "imageUrl": "Jayanti"
+  },
+  "W-kavita-gogoi-tengani-gaon": {
+    "weaverId": "W-kavita-gogoi-tengani-gaon",
+    "name": "Kavita Gogoi",
+    "village": "Tengani Gaon",
+    "subdivision": "Khumtai",
+    "district": "Golaghat",
+    "latitude": "26.754321",
+    "longitude": "93.935678",
+    "imageUrl": "Kavita"
+  },
+  "W-rumi-hazarika-neogaon": {
+    "weaverId": "W-rumi-hazarika-neogaon",
+    "name": "Rumi Hazarika",
+    "village": "Neogaon",
+    "subdivision": "Khumtai",
+    "district": "Golaghat",
+    "latitude": "26.74321",
+    "longitude": "93.948765",
+    "imageUrl": "Rumi"
   }
 }

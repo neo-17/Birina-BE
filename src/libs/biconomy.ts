@@ -1,24 +1,25 @@
 import { privateKeyToAccount } from "viem/accounts";
 import { createSmartAccountClient } from "@biconomy/account"; 
-import { baseSepolia } from "viem/chains"; 
+import { base, baseSepolia } from "viem/chains"; 
 import { createPublicClient, createWalletClient, Hex, http, parseEther } from "viem"; 
 import crypto from 'crypto';
 
 const bundlerUrl = process.env.BUNDLER_URL as string; 
 const biconomyPaymasterApiKey = process.env.BICONOMY_API_KEY as string;
-const rpcUrl = process.env.BASE_SEPOLIA_URL as string;
+const rpcUrl = process.env.BASE_MAINNET_URL as string;
 
+console.log('rpcUrl', rpcUrl)
 const publicClient = createPublicClient({
-    chain: baseSepolia,
-    transport: http(process.env.BASE_SEPOLIA_URL as string)
+    chain: base,
+    transport: http(rpcUrl as string)
 });
 
 const account = privateKeyToAccount(process.env.PRIVATE_KEY_SIGNER as Hex);
 
 const walletClient = createWalletClient({
     account,
-    chain: baseSepolia,
-    transport: http(process.env.BASE_RPC_URL)
+    chain: base,
+    transport: http(rpcUrl)
 });
 
 // Function to generate a unique token id for NFT in number

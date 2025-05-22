@@ -1,7 +1,7 @@
 import Product from '../models/gamosaProduct.model';
 import User from '../models/user.model';
 import { Hex } from 'viem';
-import { baseSepolia } from 'viem/chains';
+import { base, baseSepolia } from 'viem/chains';
 import ProductNFT from '../../abi/Gamosa.json';
 import { generateTokenId, publicClient, walletClient } from '../libs/biconomy';
 import transactionModel from '../models/transaction.model';
@@ -115,7 +115,7 @@ export const mintNFTForUser = async (req: any, res: any) => {
     const txHash = await walletClient.writeContract({
       address: process.env.CONTRACT_ADDRESS as Hex,
       abi: ProductNFT.abi as any,
-      chain: baseSepolia,
+      chain: base,
       functionName: 'mintWithQRCode',
       args: [walletAddress, qrCode, metadataUrl],
     });
@@ -183,6 +183,7 @@ export const batchRegisterQRCodes = async (req: any, res: any) => {
     // 1. Fetch all products with QR codes from the database
     const products = await Product.find({ 'qrCodes.0': { $exists: true } });
 
+    console.log('products', products);
     if (!products || products.length === 0) {
       return res.status(404).json({ message: 'No products with QR codes found' });
     }
@@ -224,10 +225,11 @@ export const batchRegisterQRCodes = async (req: any, res: any) => {
 
       try {
         // Call the smart contract
+        console.log(batch.qrCodes, batch.gamosaIds);
         const txHash = await walletClient.writeContract({
           address: process.env.CONTRACT_ADDRESS as Hex,
           abi: ProductNFT.abi as any,
-          chain: baseSepolia,
+          chain: base,
           functionName: 'batchRegisterQRCodes',
           args: [batch.qrCodes, batch.gamosaIds],
         });

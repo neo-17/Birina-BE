@@ -29,7 +29,7 @@ const QRCodeSchema = new Schema<QRCode>({
 // Create the model
 const QRCode = mongoose.model<QRCode>('QRCode', QRCodeSchema);
 
-const mongoUrl: string = 'mongodb+srv://codesshyam:SweYu58XhY34HSkL@cluster0.oepulor.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const mongoUrl: string = 'mongodb+srv://codesshyam:CrOBpfd63tEsv9gp@cluster0.z2npy82.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
 // Read the data from CSV
 interface CSVRow {

@@ -12,12 +12,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getQRDetails = exports.getGamosaByQRCode = exports.getQRCodeImage = exports.generateGamosaQRCodes = exports.deployNftForGamosa = exports.deleteGamosa = exports.updateGamosa = exports.getGamosaById = exports.getAllGamosas = exports.createGamosa = void 0;
+exports.generateQRCodeZipFile = exports.getQRDetails = exports.getGamosaByQRCode = exports.getQRCodeImage = exports.generateGamosaQRCodes = exports.deployNftForGamosa = exports.deleteGamosa = exports.updateGamosa = exports.getGamosaById = exports.getAllGamosas = exports.createGamosa = void 0;
 const pinata_1 = require("../libs/pinata");
 const gamosaProduct_model_1 = __importDefault(require("../models/gamosaProduct.model"));
 const uuid_1 = require("uuid");
 const qrcode_1 = __importDefault(require("qrcode"));
 const nftDeployment_services_1 = require("../services/nftDeployment.services");
+const archiver_1 = __importDefault(require("archiver"));
+const fs_1 = __importDefault(require("fs"));
+const path_1 = __importDefault(require("path"));
 // CREATE
 const createGamosa = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -262,3 +265,53 @@ const getQRDetails = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.getQRDetails = getQRDetails;
+const generateQRCodeZipFile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const products = yield gamosaProduct_model_1.default.find();
+        if (!products || products.length === 0) {
+            return res.status(404).send('No Gamosas found');
+        }
+        console.log(products.length);
+        // Ensure output directory exists
+        const outputDir = path_1.default.join(__dirname, '../output');
+        if (!fs_1.default.existsSync(outputDir)) {
+            fs_1.default.mkdirSync(outputDir, { recursive: true });
+        }
+        // Create a unique ZIP file name using timestamp
+        const fileName = `qrcodes_${Date.now()}.zip`;
+        const filePath = path_1.default.join(outputDir, fileName);
+        const output = fs_1.default.createWriteStream(filePath);
+        const archive = (0, archiver_1.default)('zip', { zlib: { level: 9 } });
+        // Handle archive errors
+        archive.on('error', (err) => {
+            throw err;
+        });
+        // Pipe archive to file
+        archive.pipe(output);
+        // Add QR images to the ZIP
+        for (const product of products) {
+            for (const qr of product.qrCodes) {
+                const code = qr.code;
+                const url = `${process.env.FE_URL}/p/${code}`;
+                const qrDataUrl = yield qrcode_1.default.toDataURL(url);
+                const imgBuffer = Buffer.from(qrDataUrl.split(',')[1], 'base64');
+                const fileEntryName = `${product._id}_${code}.png`;
+                archive.append(imgBuffer, { name: fileEntryName });
+            }
+        }
+        yield archive.finalize();
+        // Respond when the file is written
+        output.on('close', () => {
+            res.status(200).json({
+                message: 'QR code ZIP file generated successfully',
+                filePath: filePath,
+                size: archive.pointer(), // bytes
+            });
+        });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).send('Internal server error');
+    }
+});
+exports.generateQRCodeZipFile = generateQRCodeZipFile;

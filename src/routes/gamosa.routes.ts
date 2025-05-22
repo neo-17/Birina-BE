@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createGamosa, deleteGamosa, getAllGamosas, getGamosaById, updateGamosa, deployNftForGamosa, generateGamosaQRCodes, getQRCodeImage, getGamosaByQRCode, getQRDetails } from '../controllers/gamosa.controller';
+import { createGamosa, deleteGamosa, getAllGamosas, getGamosaById, updateGamosa, deployNftForGamosa, generateGamosaQRCodes, getQRCodeImage, getGamosaByQRCode, getQRDetails, generateQRCodeZipFile } from '../controllers/gamosa.controller';
 import { authenticateAdmin } from '../middlewares/auth.middleware';
 
 const router = Router();
@@ -29,5 +29,7 @@ router.get('/qr-image/:code', getQRCodeImage);
 router.get('/qr/:code', getGamosaByQRCode);
 
 router.get('/qr/:gamosaId', getQRDetails);
+
+router.get('/zip', generateQRCodeZipFile);
 
 export default router;

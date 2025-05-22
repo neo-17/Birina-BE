@@ -20,18 +20,19 @@ const viem_1 = require("viem");
 const crypto_1 = __importDefault(require("crypto"));
 const bundlerUrl = process.env.BUNDLER_URL;
 const biconomyPaymasterApiKey = process.env.BICONOMY_API_KEY;
-const rpcUrl = process.env.BASE_SEPOLIA_URL;
+const rpcUrl = process.env.BASE_MAINNET_URL;
+console.log('rpcUrl', rpcUrl);
 const publicClient = (0, viem_1.createPublicClient)({
-    chain: chains_1.baseSepolia,
-    transport: (0, viem_1.http)(process.env.BASE_SEPOLIA_URL)
+    chain: chains_1.base,
+    transport: (0, viem_1.http)(rpcUrl)
 });
 exports.publicClient = publicClient;
 const account = (0, accounts_1.privateKeyToAccount)(process.env.PRIVATE_KEY_SIGNER);
 exports.account = account;
 const walletClient = (0, viem_1.createWalletClient)({
     account,
-    chain: chains_1.baseSepolia,
-    transport: (0, viem_1.http)(process.env.BASE_RPC_URL)
+    chain: chains_1.base,
+    transport: (0, viem_1.http)(rpcUrl)
 });
 exports.walletClient = walletClient;
 // Function to generate a unique token id for NFT in number

@@ -15,6 +15,7 @@
     "@biconomy/account": "^4.5.7",
     "@biconomy/sdk": "^0.0.21",
     "@rhinestone/module-sdk": "^0.1.32",
+    "archiver": "^7.0.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
@@ -30,6 +31,7 @@
     "viem": "^2.21.59"
   },
   "devDependencies": {
+    "@types/archiver": "^6.0.3",
     "@types/bcryptjs": "^2.4.6",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",

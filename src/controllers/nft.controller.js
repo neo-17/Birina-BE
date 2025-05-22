@@ -110,7 +110,7 @@ const mintNFTForUser = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const txHash = yield biconomy_1.walletClient.writeContract({
             address: process.env.CONTRACT_ADDRESS,
             abi: Gamosa_json_1.default.abi,
-            chain: chains_1.baseSepolia,
+            chain: chains_1.base,
             functionName: 'mintWithQRCode',
             args: [walletAddress, qrCode, metadataUrl],
         });
@@ -168,6 +168,7 @@ const batchRegisterQRCodes = (req, res) => __awaiter(void 0, void 0, void 0, fun
     try {
         // 1. Fetch all products with QR codes from the database
         const products = yield gamosaProduct_model_1.default.find({ 'qrCodes.0': { $exists: true } });
+        console.log('products', products);
         if (!products || products.length === 0) {
             return res.status(404).json({ message: 'No products with QR codes found' });
         }
@@ -201,10 +202,11 @@ const batchRegisterQRCodes = (req, res) => __awaiter(void 0, void 0, void 0, fun
             console.log(`Processing batch ${batchIndex + 1}/${batches.length} with ${batch.qrCodes.length} items`);
             try {
                 // Call the smart contract
+                console.log(batch.qrCodes, batch.gamosaIds);
                 const txHash = yield biconomy_1.walletClient.writeContract({
                     address: process.env.CONTRACT_ADDRESS,
                     abi: Gamosa_json_1.default.abi,
-                    chain: chains_1.baseSepolia,
+                    chain: chains_1.base,
                     functionName: 'batchRegisterQRCodes',
                     args: [batch.qrCodes, batch.gamosaIds],
                 });
